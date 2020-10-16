@@ -40,14 +40,15 @@ io.on('connect', socket => {
       });
     socket.on('keys' ,(keys, id) => {
         var data = new v(0,0);
+        let movespeed = 3;
         if(keys.w){
-            data.y += -1;
+            data.y += -1*movespeed;
         } if(keys.s){
-            data.y += 1;
+            data.y += 1*movespeed;
         } if(keys.a){
-            data.x += -1;
+            data.x += -1*movespeed;
         } if(keys.d){
-            data.x += 1;
+            data.x += 1*movespeed;
         }
         world.updatePlayer(data, id);
         socket.emit('updateworld', world.getMetadata(id));

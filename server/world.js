@@ -16,12 +16,12 @@ function World(){
             var value = this.players[key];
             // ret[key] = value.pos;
             if(key == id){
-                ret[key] = new v(200,200);
+                ret[key] = new v(400,400);
             }else{
-                let diff = (v(200,200)).subtract(this.players[id].pos.clone());
+                let diff = (v(400,400)).subtract(this.players[id].pos.clone());
                 let cpos = value.pos.clone();
                 ret[key] = (cpos.clone().add(diff.clone()));
-                console.log((v(200,200)).subtract(this.players[id].pos.clone()));
+                //console.log((v(200,200)).subtract(this.players[id].pos.clone()));
             }
             // do something with "key" and "value" variables
         }

@@ -9,12 +9,13 @@ worlddisplay = function(metadata, id){
     if(key != id){
 
       fill(255,255,255);
-      rect(value.x-15, value.y-15, 30,30);
+      
     }else{
       fill(252, 244, 3);
-      rect(value.x-15, value.y-15, 30,30);
+      
       //print("got here");
     }
+    ellipse(value.x-15, value.y-15, 30,30);
     // do something with "key" and "value" variables
   }
 }
@@ -53,10 +54,10 @@ setInterval(() => {
   console.log(counter);
 }, 1000);
 setup = function(){
-  createCanvas(400,400);
+  createCanvas(800,800);
 }
 draw = function(){
-  background(255,0,0);
+  background(255,0,0, 100);
   worlddisplay(myworld, myid);
   //print(keyCode);
 }
