@@ -13,7 +13,7 @@ worlddisplay = function(metadata, id){
     }else{
       fill(252, 244, 3);
       rect(value.x-15, value.y-15, 30,30);
-      print("got here");
+      //print("got here");
     }
     // do something with "key" and "value" variables
   }
@@ -53,7 +53,7 @@ setInterval(() => {
   console.log(counter);
 }, 1000);
 setup = function(){
-  createCanvas(300,300);
+  createCanvas(400,400);
 }
 draw = function(){
   background(255,0,0);

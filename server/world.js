@@ -1,6 +1,7 @@
 const Player = require("./player");
 
 //var Player = require("./player");
+var v = require("victor");
 function World(){
     this.players = {};
     this.addPlayer = function(id){
@@ -9,11 +10,19 @@ function World(){
     this.updatePlayer = function(data, id){
         this.players[id].updatepos(data);
     }
-    this.getMetadata = function(){
+    this.getMetadata = function(id){
         let ret = {};
         for(var key in this.players) {
             var value = this.players[key];
-            ret[key] = value.pos;
+            // ret[key] = value.pos;
+            if(key == id){
+                ret[key] = new v(200,200);
+            }else{
+                let diff = (v(200,200)).subtract(this.players[id].pos.clone());
+                let cpos = value.pos.clone();
+                ret[key] = (cpos.clone().add(diff.clone()));
+                console.log((v(200,200)).subtract(this.players[id].pos.clone()));
+            }
             // do something with "key" and "value" variables
         }
         //console.log("Got here");

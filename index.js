@@ -3,8 +3,8 @@ var fs = require("fs");
 var http = require("http");
 var url = require("url");
 var v = require("victor");
-var Player = require("./player");
-var World = require("./world");
+var Player = require("./server/player");
+var World = require("./server/world");
 let count = 0; // an attempt to have a variable be modified by multiple nodes.
 let world = new World();
 const httpServer = http.createServer((req, res) => {
@@ -29,7 +29,7 @@ const io = require('socket.io')(httpServer);
 io.on('connect', socket => {
     let counter = 0;
     world.addPlayer(socket.id);
-    console.log("Connected");
+    console.log(`Player ${socket.id} connected`);
     socket.emit("init", socket.id);
     //socket.emit('move', new v(0,0));
     socket.on('hey', data => {
@@ -50,10 +50,10 @@ io.on('connect', socket => {
             data.x += 1;
         }
         world.updatePlayer(data, id);
-        socket.emit('updateworld', world.getMetadata());
+        socket.emit('updateworld', world.getMetadata(id));
     });
     socket.on('disconnect', (reason) => {
-      console.log("Player got disconnected");
+      console.log(`Player ${socket.id} disconnected`);
         world.removePlayer(socket.id);
       
       // else the socket will automatically try to reconnect
