@@ -1,4 +1,23 @@
-let pos = new p5.Vector(0,0);
+var v = Victor;
+var me;
+var myid;
+var myworld;
+let pos = new v(0,0);
+worlddisplay = function(metadata, id){
+  for(var key in metadata) {
+    var value = metadata[key];
+    if(key != id){
+
+      fill(255,255,255);
+      rect(value.x-15, value.y-15, 30,30);
+    }else{
+      fill(252, 244, 3);
+      rect(value.x-15, value.y-15, 30,30);
+      print("got here");
+    }
+    // do something with "key" and "value" variables
+  }
+}
 const $events = document.getElementById('events');
 
         const newItem = (content) => {
@@ -13,10 +32,19 @@ socket.on('connect', () => {
   $events.appendChild(newItem('connect'));
 });
 socket.on('move', (move) => {
-  pos.add(move.x, move.y);
+  me.updatepos(move);
   socket.emit('keys', keys);
   //print("got here");
 });
+socket.on('init',( id )=> {
+  myid = id;
+  socket.emit('keys', keys, myid);
+});
+socket.on('updateworld',(world) =>{
+  myworld = world;
+  socket.emit('keys',keys,  myid)
+});
+
 let keys = {};
 let counter = 0;
 setInterval(() => {
@@ -29,7 +57,7 @@ setup = function(){
 }
 draw = function(){
   background(255,0,0);
-  rect(pos.x-15, pos.y -15, 30, 30);
+  worlddisplay(myworld, myid);
   //print(keyCode);
 }
 function keyPressed() {
