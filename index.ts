@@ -28,13 +28,13 @@ io.on('connect', socket => {
     socket.on('keys' ,(keys) => {
         var data = {x:0, y:0};
         if(keys.w){
-            data.y = -10;
-        }else if(keys.s){
-            data.y = 10;
-        }else if(keys.a){
-            data.x = -10;
-        }else if(keys.d){
-            data.x = 10;
+            data.y += -1;
+        } if(keys.s){
+            data.y += 1;
+        } if(keys.a){
+            data.x += -1;
+        } if(keys.d){
+            data.x += 1;
         }
         socket.emit('move', data);
     })

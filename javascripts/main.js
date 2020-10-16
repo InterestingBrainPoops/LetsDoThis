@@ -34,6 +34,7 @@ draw = function(){
 }
 function keyPressed() {
   keys[key.toString().toLowerCase()] = true;
+  print(key.toString());
   return false;
 }
 function keyReleased(){
