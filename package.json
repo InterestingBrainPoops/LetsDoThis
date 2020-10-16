@@ -1,0 +1,24 @@
+{
+  "name": "letsdothis",
+  "version": "1.0.0",
+  "description": "A project holder.",
+  "main": "index.ts",
+  "dependencies": {
+    "p5": "^1.1.9",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/InterestingBrainPoops/LetsDoThis.git"
+  },
+  "author": "Het Satasiya",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/InterestingBrainPoops/LetsDoThis/issues"
+  },
+  "homepage": "https://github.com/InterestingBrainPoops/LetsDoThis#readme"
+}
