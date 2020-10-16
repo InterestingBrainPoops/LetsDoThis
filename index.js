@@ -53,9 +53,9 @@ io.on('connect', socket => {
         socket.emit('updateworld', world.getMetadata());
     });
     socket.on('disconnect', (reason) => {
-      if (reason === 'io client disconnect') {
+      console.log("Player got disconnected");
         world.removePlayer(socket.id);
-      }
+      
       // else the socket will automatically try to reconnect
     });
   });

@@ -16,7 +16,7 @@ function World(){
             ret[key] = value.pos;
             // do something with "key" and "value" variables
         }
-        console.log("Got here");
+        //console.log("Got here");
         return ret;
     }
     this.removePlayer = function(id){
