@@ -5,7 +5,7 @@ var url = require("url");
 var v = require("victor");
 var Player = require("./server/player");
 var World = require("./server/world");
-let count = 0; // an attempt to have a variable be modified by multiple nodes.
+//let count = 0; // an attempt to have a variable be modified by multiple nodes.
 let world = new World();
 const httpServer = http.createServer((req, res) => {
   // serve the index.html file
@@ -35,12 +35,16 @@ io.on('connect', socket => {
     socket.on('hey', data => {
         console.log('hey', data);
         //print("A thing happened and p5 is working.");
-        count ++;
-        console.log(count);
+        //count ++;
+        //console.log(count);
       });
-    socket.on('keys' ,(keys, id) => {
+    socket.on('keys' ,(keys, id , mopr, mPos) => {
         var data = new v(0,0);
-        let movespeed = 3;
+        if(mopr){
+          console.log("Mouse is pressed on client:", id);
+        }
+        //console.log(mPos);
+        let movespeed = 2;
         if(keys.w){
             data.y += -1*movespeed;
         } if(keys.s){
@@ -50,7 +54,7 @@ io.on('connect', socket => {
         } if(keys.d){
             data.x += 1*movespeed;
         }
-        world.updatePlayer(data, id);
+        world.updatePlayer(data, id , mPos);
         socket.emit('updateworld', world.getMetadata(id));
     });
     socket.on('disconnect', (reason) => {
