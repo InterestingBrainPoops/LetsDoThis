@@ -31,19 +31,14 @@ io.on('connect', socket => {
     world.addPlayer(socket.id);
     console.log(`Player ${socket.id} connected`);
     socket.emit("init", socket.id);
-    //socket.emit('move', new v(0,0));
     socket.on('hey', data => {
         console.log('hey', data);
-        //print("A thing happened and p5 is working.");
-        //count ++;
-        //console.log(count);
       });
     socket.on('keys' ,(keys, id , mopr, mPos) => {
         var data = new v(0,0);
         if(mopr){
           console.log("Mouse is pressed on client:", id);
         }
-        //console.log(mPos);
         let movespeed = 2;
         if(keys.w){
             data.y += -1*movespeed;
@@ -60,8 +55,6 @@ io.on('connect', socket => {
     socket.on('disconnect', (reason) => {
       console.log(`Player ${socket.id} disconnected`);
         world.removePlayer(socket.id);
-      
-      // else the socket will automatically try to reconnect
     });
   });
 

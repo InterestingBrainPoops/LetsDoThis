@@ -1,10 +1,4 @@
-//const Victor = require("victor");
 
-//const Victor = require("victor");
-
-//const Victor = require("victor");
-
-//const Victor = require("victor");
 
 var v = Victor;
 var me;
