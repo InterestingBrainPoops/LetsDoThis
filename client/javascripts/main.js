@@ -14,6 +14,7 @@ let pos = new v(0,0);
 let mX = 0;
 let mY = 0;
 let mPos = new Victor();
+let mp = 0;
 worlddisplay = function(metadata, id){
   for(var key in metadata) {
     var value = metadata[key];
@@ -51,11 +52,11 @@ socket.on('move', (move) => {
 });
 socket.on('init',( id )=> {
   myid = id;
-  socket.emit('keys', keys, myid, mouseIsPressed, new Victor(mX,mY));
+  socket.emit('keys', keys, myid, mp, new Victor(mX,mY));
 });
 socket.on('updateworld',(world) =>{
   myworld = world;
-  socket.emit('keys',keys, myid, mouseIsPressed, new Victor(mX, mY));
+  socket.emit('keys',keys, myid, mp, new Victor(mX, mY));
 });
 
 let keys = {};
@@ -74,6 +75,7 @@ draw = function(){
   worlddisplay(myworld, myid);
   mX = mouseX;
   mY = mouseY;
+  mp = mouseIsPressed;
   //print(new Victor(mX,mY).toString());
   //print(keyCode);
 }
