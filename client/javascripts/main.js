@@ -1,5 +1,3 @@
-
-
 var v = Victor;
 var me;
 var myid;
@@ -11,19 +9,22 @@ let mPos = new Victor();
 let mp = 0;
 worlddisplay = function(metadata, id){
   for(var key in metadata) {
-    var value = metadata[key];
-    if(key != id){
-
-      fill(255,255,255);
-      
-    }else{
-      fill(252, 244, 3);
-      
-      //print("got here");
+    if(key != 'bPos'){
+      var value = metadata[key];
+      if(key != id){
+        fill(255,255,255);
+      }else{
+        fill(252, 244, 3);
+      }
+      ellipse(value.pos.x-15, value.pos.y-15, 30,30);
+      line(value.gunPos.x1.x, value.gunPos.x1.y, value.gunPos.x2.x,value.gunPos.x2.y);
+    }else if(key == 'bPos'){
+      for(let x = 0; x < metadata.bPos.length; x++){
+        fill(0,0,0);
+        ellipse(metadata.bPos[x].x-10, metadata.bPos[x].y-10, 20,20);
+      }
     }
-    ellipse(value.pos.x-15, value.pos.y-15, 30,30);
-    line(value.gunPos.x1.x, value.gunPos.x1.y, value.gunPos.x2.x,value.gunPos.x2.y);
-    // do something with "key" and "value" variables
+      // do something with "key" and "value" variables
   }
 }
 const $events = document.getElementById('events');
@@ -42,7 +43,6 @@ socket.on('connect', () => {
 socket.on('move', (move) => {
   me.updatepos(move);
   socket.emit('keys', keys);
-  //print("got here");
 });
 socket.on('init',( id )=> {
   myid = id;
@@ -70,12 +70,9 @@ draw = function(){
   mX = mouseX;
   mY = mouseY;
   mp = mouseIsPressed;
-  //print(new Victor(mX,mY).toString());
-  //print(keyCode);
 }
 function keyPressed() {
   keys[key.toString().toLowerCase()] = true;
-  //print(key.toString());
   return false;
 }
 function keyReleased(){

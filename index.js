@@ -1,10 +1,13 @@
 //const content = require('fs').readFileSync(__dirname + '/index.html', 'utf8');
+const { performance } = require("perf_hooks");
+console.log(performance.now());
 var fs = require("fs");
 var http = require("http");
 var url = require("url");
 var v = require("victor");
 var Player = require("./server/player");
 var World = require("./server/world");
+var Bullet = require("./server/bullet");
 //let count = 0; // an attempt to have a variable be modified by multiple nodes.
 let world = new World();
 const httpServer = http.createServer((req, res) => {
@@ -37,7 +40,9 @@ io.on('connect', socket => {
     socket.on('keys' ,(keys, id , mopr, mPos) => {
         var data = new v(0,0);
         if(mopr){
-          console.log("Mouse is pressed on client:", id);
+          if(performance.now() - world.players[id].mPtime >= 100){
+            world.shoot(id, performance.now());
+          }
         }
         let movespeed = 2;
         if(keys.w){
@@ -49,6 +54,7 @@ io.on('connect', socket => {
         } if(keys.d){
             data.x += 1*movespeed;
         }
+        world.updateBullets();
         world.updatePlayer(data, id , mPos);
         socket.emit('updateworld', world.getMetadata(id));
     });
