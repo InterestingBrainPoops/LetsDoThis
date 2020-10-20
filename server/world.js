@@ -13,9 +13,23 @@ function World(){
     this.shoot = function(id, time){
         let t0 = this.players[id].mPtime;
         this.players[id].mPtime = time;
-        this.bullets.push(new b(this.players[id].mPos.clone().subtract(v(400,400)).normalize(), this.players[id].pos));
+        this.bullets.push(new b(this.players[id].mPos.clone().subtract(v(400,400)).normalize(), this.players[id].pos.clone()));
         //console.log(this.bullets[time]);
         console.log(`${ id } Shot a bullet, time since last: ${time-t0}`);
+    }
+    this.pruneBullets = function(){
+        let poplist = [];
+        for(let x = 0; x < this.bullets.length; x++){
+            let temp = this.bullets[x];
+            if(temp.pos.x >= 400 || temp.pos.x <= -400 || temp.pos.y >= 400 || temp.pos.y <= -400){
+                console.log("This actually got reached");
+                poplist.push(x);
+            }
+        }
+        poplist.reverse();
+        for(let x = 0; x < poplist.length; x++){
+            this.bullets.splice(x,1);
+        }
     }
     this.getMetadata = function(id){
         let ret = {};
@@ -36,13 +50,15 @@ function World(){
         //console.log(this.bullets[0]);
         for(let x = 0; x < this.bullets.length; x++){
             //console.log(x);
-            ret.bPos.push(this.bullets[x].getRelCoords(this.players[id].pos));
+            //console.log(this.bullets[x].getRelCoords(this.players[id].pos.clone()));
+            ret.bPos.push(this.bullets[x].getRelCoords(this.players[id].pos.clone()));
         }
         //console.log(Object.keys(ret));
         return ret;
     }
     this.updateBullets = function(){
-        console.log(this.bullets.length);
+        //console.log(this.bullets.length);
+        //console.log("UpdateBullets Called.");
         for(let x = 0; x < this.bullets.length; x++){
             //console.log(this.bullets[x]);
             this.bullets[x].update();

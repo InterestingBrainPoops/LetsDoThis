@@ -54,7 +54,9 @@ io.on('connect', socket => {
         } if(keys.d){
             data.x += 1*movespeed;
         }
+        world.pruneBullets();
         world.updateBullets();
+        
         world.updatePlayer(data, id , mPos);
         socket.emit('updateworld', world.getMetadata(id));
     });

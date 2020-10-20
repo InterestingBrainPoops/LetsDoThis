@@ -21,6 +21,7 @@ worlddisplay = function(metadata, id){
     }else if(key == 'bPos'){
       for(let x = 0; x < metadata.bPos.length; x++){
         fill(0,0,0);
+        console.log(metadata.bPos);
         ellipse(metadata.bPos[x].x-10, metadata.bPos[x].y-10, 20,20);
       }
     }
