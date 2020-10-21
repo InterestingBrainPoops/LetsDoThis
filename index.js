@@ -76,7 +76,10 @@ while(true){
  world.updatePlayers();
  //console.log("This hopefully got called");
  //do the time.sleep here to satisfy approx. 60 updates per second. DO NOT RUN UNTIL THIS GETS EITHER UNCOMMENTED OR IMPLEMENTED!
- await new Promise(resolve => setTimeout(resolve, (1000/60)-(t0-performance.now())));
+ console.log(t0-performance.now());
+ if((1000/60)-(t0-performance.now()) > 0){
+ 	await new Promise(resolve => setTimeout(resolve, (1000/60)-(t0-performance.now())));
+ }
 }
 }
 main();
