@@ -8,6 +8,8 @@ var v = require("victor");
 var Player = require("./server/player");
 var World = require("./server/world");
 var Bullet = require("./server/bullet");
+let t0; // the beginning of the frame loop;
+
 //let count = 0; // an attempt to have a variable be modified by multiple nodes.
 let world = new World();
 const httpServer = http.createServer((req, res) => {
@@ -54,10 +56,7 @@ io.on('connect', socket => {
         } if(keys.d){
             data.x += 1*movespeed;
         }
-        world.pruneBullets();
-        world.updateBullets();
-        
-        world.updatePlayer(data, id , mPos);
+        world.updatePlayerData(id, data , mPos);
         socket.emit('updateworld', world.getMetadata(id));
     });
     socket.on('disconnect', (reason) => {
@@ -65,7 +64,19 @@ io.on('connect', socket => {
         world.removePlayer(socket.id);
     });
   });
-
 httpServer.listen(3000, () => {
   console.log('go to http://localhost:3000');
 });
+
+async function main(){
+while(true){
+ t0 = performance.now();
+ world.pruneBullets();
+ world.updateBullets();
+ world.updatePlayers();
+ //console.log("This hopefully got called");
+ //do the time.sleep here to satisfy approx. 60 updates per second. DO NOT RUN UNTIL THIS GETS EITHER UNCOMMENTED OR IMPLEMENTED!
+ await new Promise(resolve => setTimeout(resolve, (1000/60)-(t0-performance.now())));
+}
+}
+main();

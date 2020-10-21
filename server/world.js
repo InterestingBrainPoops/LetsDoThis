@@ -22,7 +22,7 @@ function World(){
         for(let x = 0; x < this.bullets.length; x++){
             let temp = this.bullets[x];
             if(temp.pos.x >= 400 || temp.pos.x <= -400 || temp.pos.y >= 400 || temp.pos.y <= -400){
-                console.log("This actually got reached");
+                //console.log("This actually got reached");
                 poplist.push(x);
             }
         }
@@ -66,6 +66,15 @@ function World(){
     }
     this.removePlayer = function(id){
         delete this.players[id];
+    }
+    this.updatePlayers = function(){
+        for(x in this.players){
+            //console.log(x);
+            this.players[x].step();
+        }
+    }
+    this.updatePlayerData = function(id, data, mPos){
+        this.players[id].updateData(data, mPos);
     }
 }
 module.exports = World;
