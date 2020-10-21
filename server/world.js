@@ -18,18 +18,19 @@ function World(){
         console.log(`${ id } Shot a bullet, time since last: ${time-t0}`);
     }
     this.pruneBullets = function(){
-        let poplist = [];
+        let ne = [];
         for(let x = 0; x < this.bullets.length; x++){
             let temp = this.bullets[x];
-            if(temp.pos.x >= 400 || temp.pos.x <= -400 || temp.pos.y >= 400 || temp.pos.y <= -400){
+            if(!(temp.pos.x >= 400 || temp.pos.x <= -400 || temp.pos.y >= 400 || temp.pos.y <= -400)){
                 //console.log("This actually got reached");
-                poplist.push(x);
+                ne.push(this.bullets[x]);
             }
         }
-        poplist.reverse();
-        for(let x = 0; x < poplist.length; x++){
-            this.bullets.splice(x,1);
-        }
+        this.bullets = ne;
+        //poplist.reverse();
+        //for(let x = 0; x < poplist.length; x++){
+         //   this.bullets.splice(x,1);
+        //}
     }
     this.getMetadata = function(id){
         let ret = {};
