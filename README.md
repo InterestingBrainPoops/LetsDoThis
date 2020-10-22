@@ -9,6 +9,12 @@ node index.js
 WASD is the controls.  
 ## Reccomendations
 My next reccomendation is to open up muliple localhost tabs, becuase of the way that I made the player view system, the player is locked to the center of the screen.  
+  
+## The development cycle  
+I plan on pushing a new meaningful feature once a day at least.  
+And unless the feature is a mega overhaul/refactor or something along those lines, then I would mention it in the previous commit or update the README.  
+  
+  
 ## Credits
 I used external libraries, so here they are:  
 [socket.io](https://socket.io),  
