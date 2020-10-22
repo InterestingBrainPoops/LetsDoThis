@@ -37,9 +37,9 @@ function World(){
         for(let x = 0; x < this.bullets.length; x++){
             var temp = this.bullets[x];
             //console.log(temp.pos);
-            //if(!((temp.pos.x >= 400 || temp.pos.x <= -400 )||( temp.pos.y >= 400 || temp.pos.y <= -400))){
-                //console.log("This actually got    ne.push(this.bullets[x]);
-            // {
+            if(!((temp.pos.x >= 400 || temp.pos.x <= -400 )||( temp.pos.y >= 400 || temp.pos.y <= -400))){
+                console.log("This actually got    ne.push(this.bullets[x]);
+            {
             //     for(var val in this.players){
             //         //console.log(this.bullets[x].pos);
             //         console.log(Object.keys(this.bullets).length);
