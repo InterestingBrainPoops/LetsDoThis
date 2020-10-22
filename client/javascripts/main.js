@@ -23,7 +23,7 @@ worlddisplay = function(metadata, id){
       for(let x = 0; x < metadata.bPos.length; x++){
         fill(0,0,0);
         //console.log(metadata.bPos);
-        ellipse(metadata.bPos[x].x-10, metadata.bPos[x].y-10, 20,20);
+        ellipse(metadata.bPos[x].x-2, metadata.bPos[x].y-2, 4,4);
       }
     }
       // do something with "key" and "value" variables

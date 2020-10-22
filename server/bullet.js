@@ -2,7 +2,7 @@ let v = require("victor");
 function Bullet(dir, initpos){
     //console.log(initpos);
     this.dir = dir;
-    this.pos = initpos;
+    this.pos = initpos.clone().add(dir.clone().multiply(v(18,18))); // v(18,18) was derived by (playerRadius+bulletRadius+1)
     //console.log(this.pos);
     this.update = function(){
         //console.log(dir);
