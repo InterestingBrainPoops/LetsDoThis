@@ -33,9 +33,12 @@ const io = require('socket.io')(httpServer);
 
 io.on('connect', socket => {
     let counter = 0;
-    world.addPlayer(socket.id);
-    console.log(`Player ${socket.id} connected`);
-    socket.emit("init", socket.id);
+    
+    socket.on('nameInit', (name) =>{
+      console.log(`Player ${socket.id} AKA ${name} connected`);
+      world.addPlayer(socket.id, name);
+      socket.emit("init", socket.id);
+    });
     socket.on('hey', data => {
         console.log('hey', data);
       });

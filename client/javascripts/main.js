@@ -21,7 +21,7 @@ worlddisplay = function(metadata, id){
     }else if(key == 'bPos'){
       for(let x = 0; x < metadata.bPos.length; x++){
         fill(0,0,0);
-        console.log(metadata.bPos);
+        //console.log(metadata.bPos);
         ellipse(metadata.bPos[x].x-10, metadata.bPos[x].y-10, 20,20);
       }
     }
@@ -61,9 +61,28 @@ setInterval(() => {
   socket.emit('hey', { counter }); // the object will be serialized for you
   console.log(counter);
 }, 1000);
+let inp;
+let button;
 setup = function(){
   createCanvas(800,800);
   ellipseMode(CORNER);
+  //createCanvas(800,800);
+  background(255,0,0);
+  inp = createInput('').attribute("placeholder", "Write Name Here");
+  //inp.input(myInputEvent);
+  button = createButton('Submit Name');
+  inp.size(200,30);
+  inp.position(300,200-15);
+  button.size(120, 30);
+  button.position(400-60, 250-15);
+  button.mousePressed(changeBG);
+
+}
+function changeBG(){
+  inp.remove();
+  button.remove();
+  //console.log(inp.value());
+  socket.emit("nameInit", inp.value());
 }
 draw = function(){
   background(255,0,0);
@@ -74,7 +93,7 @@ draw = function(){
 }
 function keyPressed() {
   keys[key.toString().toLowerCase()] = true;
-  return false;
+  //return false;
 }
 function keyReleased(){
   keys[key.toString().toLowerCase()] = false;

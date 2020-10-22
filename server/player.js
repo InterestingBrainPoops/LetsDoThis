@@ -1,6 +1,7 @@
 let v = require("victor");
 
-function Player(id){
+function Player(id, name){
+    this.name = name;
     this.pos = new v(0,0);
     this.id = id;
     this.mPos = new v(0,0);

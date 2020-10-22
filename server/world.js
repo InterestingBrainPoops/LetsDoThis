@@ -4,8 +4,8 @@ var b = require("./bullet");
 function World(){
     this.players = {};
     this.bullets = [];
-    this.addPlayer = function(id){
-        this.players[id] = new Player(id);
+    this.addPlayer = function(id, name){
+        this.players[id] = new Player(id, name);
     }
     this.updatePlayer = function(data, id, mPos){
         this.players[id].updatepos(data, mPos);
