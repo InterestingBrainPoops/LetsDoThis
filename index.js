@@ -23,7 +23,7 @@ const httpServer = http.createServer((req, res) => {
       let script = fs.readFileSync("./client/javascripts/main.js", "utf8");
       res.write(script);
   }else if (pathname == "/player.js"){
-      let script = fs.readFileSync("./player.js");
+      let script = fs.readFileSync("./player.js", "utf8");
       res.write(script);
   }
   res.end();
@@ -60,7 +60,8 @@ io.on('connect', socket => {
             data.x += 1*movespeed;
         }
         world.updatePlayerData(id, data , mPos);
-        socket.emit('updateworld', world.getMetadata(id));
+        //console.log(world.getLeaderboard());
+        socket.emit('updateState', world.getMetadata(id), world.getLeaderboard());
     });
     socket.on('disconnect', (reason) => {
       console.log(`Player ${socket.id} disconnected`);

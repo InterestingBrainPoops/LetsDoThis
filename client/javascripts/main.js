@@ -7,8 +7,9 @@ let mX = 0;
 let mY = 0;
 let mPos = new Victor();
 let mp = 0;
+let myLeaderBoard = {};
 worlddisplay = function(metadata, id){
-  for(var key in metadata) {
+  for(var key in metadata) {//world display code goes here.
     if(key != 'bPos'){
       var value = metadata[key];
       if(key != id){
@@ -26,6 +27,33 @@ worlddisplay = function(metadata, id){
       }
     }
       // do something with "key" and "value" variables
+  }
+  if(keys.l){
+    fill(220,220,220,100);
+    rect(150, 20, 500, 800-40);
+    let b = 72;
+    let crees = Object.keys(myLeaderBoard);
+    //console.log(myLeaderBoard);
+    for(let x = 0; x < 10; x++){
+      noStroke();
+      fill(220,220,220,100);
+      rect(160, x*(b+1) + 40, 500-20, b-10);
+      rect(165, x*(b+1) + 40, 232, b-10);
+      rect(165+232+5, x*(b+1) + 40, 232, b-10);
+      fill(0,0,0);
+      if(myLeaderBoard[x]){
+      textAlign(LEFT);
+      text(myLeaderBoard[x].name,165, x*(b+1)+40, 165+232, x*(b+1)+40+b-10);
+      textAlign(RIGHT, TOP);
+      //text("Name",165, x*(b+1)+40, 165+232, x*(b+1)+40+b-10);
+      text(myLeaderBoard[x].score, 165+232+5+232, x*(b+1)+40);
+      }
+      stroke(2);
+    }
+    for(var x in myLeaderBoard){
+      let value = myLeaderBoard[x];
+
+    }
   }
 }
 const $events = document.getElementById('events');
@@ -49,8 +77,9 @@ socket.on('init',( id )=> {
   myid = id;
   socket.emit('keys', keys, myid, mp, new Victor(mX,mY));
 });
-socket.on('updateworld',(world) =>{
+socket.on('updateState',(world, leaderBoard) =>{
   myworld = world;
+  myLeaderBoard = leaderBoard;
   socket.emit('keys',keys, myid, mp, new Victor(mX, mY));
 });
 

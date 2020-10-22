@@ -1,6 +1,21 @@
 const Player = require("./player");
 var v = require("victor");
 var b = require("./bullet");
+function sort_object(obj) {
+    items = Object.keys(obj).map(function(key) {
+        return [key, obj[key]];
+    });
+    items.sort(function(first, second) {
+        return second[1] - first[1];
+    });
+    sorted_obj={}
+    $.each(items, function(k, v) {
+        use_key = v[0]
+        use_value = v[1]
+        sorted_obj[use_key] = use_value
+    })
+    return(sorted_obj)
+} 
 function World(){
     this.players = {};
     this.bullets = [];
@@ -56,6 +71,52 @@ function World(){
         }
         //console.log(Object.keys(ret));
         return ret;
+    }
+    this.getLeaderboard = function(){
+        let ret = {};
+        //let scores = []; 
+        //let names = [];
+        for(let x = 0; x < Object.keys(this.players).length; x++){
+            let value = this.players[Object.keys(this.players)[x]];
+            //console.log(value);
+            ret[value.name] = value.score;
+        }
+        var items = Object.keys(ret).map(function(key) {
+            return [key, ret[key]];
+          });
+          
+          // Sort the array based on the second element
+          items.sort(function(first, second) {
+            return second[1] - first[1];
+          });
+          var keys = Object.keys(ret);
+
+        //Get the number of keys - easy using the array 'length' property
+        var i, len = keys.length; 
+
+//Sort the keys. We can use the sort() method because 'keys' is an array
+        keys.sort(function(a, b){return b-a}); 
+
+//This array will hold your key/value pairs in an ordered way
+//it will be an array of objects
+        var sortedDict = [];
+
+//Now let's go throught your keys in the sorted order
+        for (i = 0; i < len; i++)
+        {
+            //get the current key
+            k = keys[i];
+        
+            //show you the key and the value (retrieved by accessing dict with current key)
+            //alert(k + ':' + ret[k]);
+        
+            //Using the array 'push' method, we add an object at the end of the result array
+            //It will hold the key/value pair
+            sortedDict.push({name: k, score:ret[k]});
+        }
+          // Create a new array with only the first 5 items
+          return sortedDict.splice(0,10);
+          
     }
     this.updateBullets = function(){
         //console.log(this.bullets.length);
