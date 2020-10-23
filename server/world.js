@@ -47,7 +47,6 @@ function World(){
             //             ne.push(this.bullets[x]);
             //         }
             //     }
-            // }
 
         }
         this.bullets = ne;
