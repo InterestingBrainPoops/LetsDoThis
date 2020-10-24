@@ -82,6 +82,13 @@ socket.on('updateState',(world, leaderBoard) =>{
   myLeaderBoard = leaderBoard;
   socket.emit('keys',keys, myid, mp, new Victor(mX, mY));
 });
+var latency = 0;
+
+socket.on('pong', function(ms) {
+    latency = ms;
+
+    //console.log(latency);
+});
 
 let keys = {};
 let counter = 0;
@@ -119,6 +126,8 @@ draw = function(){
   mX = mouseX;
   mY = mouseY;
   mp = mouseIsPressed;
+  textAlign(LEFT, TOP);
+  text(latency, 0,0);
 }
 function keyPressed() {
   keys[key.toString().toLowerCase()] = true;

@@ -29,7 +29,9 @@ const httpServer = http.createServer((req, res) => {
   res.end();
 });
 
-const io = require('socket.io')(httpServer);
+const io = require('socket.io')(httpServer, {
+  pingInterval : 10
+});
 
 io.on('connect', socket => {
     let counter = 0;
@@ -67,6 +69,7 @@ io.on('connect', socket => {
       console.log(`Player ${socket.id} disconnected`);
         world.removePlayer(socket.id);
     });
+
   });
   let port = process.env.PORT;
   if (port == null || port == "") {
