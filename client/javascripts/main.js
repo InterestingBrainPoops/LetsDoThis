@@ -1,3 +1,7 @@
+//const Victor = require("victor");
+
+//const Victor = require("victor");
+
 var v = Victor;
 var me;
 var myid;
@@ -7,7 +11,9 @@ let mX = 0;
 let mY = 0;
 let mPos = new Victor();
 let mp = 0;
+let img;
 let myLeaderBoard = {};
+let myPos = Victor();
 worlddisplay = function(metadata, id){
   for(var key in metadata) {//world display code goes here.
     if(key != 'bPos'){
@@ -16,9 +22,16 @@ worlddisplay = function(metadata, id){
         fill(255,255,255);
       }else{
         fill(252, 244, 3);
+        console.log(value.pos.x);
+        let imgPos = new Victor(myPos.x, myPos.y);
+        //imgPos = imgPos.clone().multiply(Victor(-1,-1)).subtract(Victor(400,400));
+        imgPos = (imgPos.clone().multiply(Victor(-1,-1)));
+        //let img = loadImage("/800x800pxgrid.png");
+        image(img, imgPos.x, imgPos.y);
       }
       ellipse(value.pos.x-15, value.pos.y-15, 30,30);
       line(value.gunPos.x1.x, value.gunPos.x1.y, value.gunPos.x2.x,value.gunPos.x2.y);
+      
     }else if(key == 'bPos'){
       for(let x = 0; x < metadata.bPos.length; x++){
         fill(0,0,0);
@@ -77,9 +90,10 @@ socket.on('init',( id )=> {
   myid = id;
   socket.emit('keys', keys, myid, mp, new Victor(mX,mY));
 });
-socket.on('updateState',(world, leaderBoard) =>{
+socket.on('updateState',(world, leaderBoard, pPos) =>{
   myworld = world;
   myLeaderBoard = leaderBoard;
+  myPos = pPos;
   socket.emit('keys',keys, myid, mp, new Victor(mX, mY));
 });
 var latency = 0;
@@ -102,6 +116,7 @@ let button;
 setup = function(){
   createCanvas(800,800);
   ellipseMode(CORNER);
+  img = loadImage("/800x800pxgrid.png");
   //createCanvas(800,800);
   background(255,0,0);
   inp = createInput('').attribute("placeholder", "Write Name Here");

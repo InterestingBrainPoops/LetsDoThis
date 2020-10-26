@@ -15,16 +15,23 @@ let world = new World();
 const httpServer = http.createServer((req, res) => {
   // serve the index.html file
   var pathname = url.parse(req.url).pathname;
-  res.writeHead(200);
+  
   if(pathname == "/"){
+    res.writeHead(200);
       let html = fs.readFileSync("./client/index.html", "utf8");
       res.write(html);
   }else if (pathname == "/main.js"){
+    res.writeHead(200);
       let script = fs.readFileSync("./client/javascripts/main.js", "utf8");
       res.write(script);
   }else if (pathname == "/player.js"){
+    res.writeHead(200);
       let script = fs.readFileSync("./player.js", "utf8");
       res.write(script);
+  }else if (pathname == "/800x800pxgrid.png"){
+    res.writeHead(200, {'Content-Type': 'image/png' });
+    let img = fs.readFileSync("./client/assets/800x800pxgrid.png");
+      res.write(img, 'binary');
   }
   res.end();
 });
@@ -63,7 +70,7 @@ io.on('connect', socket => {
         }
         world.updatePlayerData(id, data , mPos);
         //console.log(world.getLeaderboard());
-        socket.emit('updateState', world.getMetadata(id), world.getLeaderboard());
+        socket.emit('updateState', world.getMetadata(id), world.getLeaderboard(), world.players[id].pos);
     });
     socket.on('disconnect', (reason) => {
       console.log(`Player ${socket.id} disconnected`);
