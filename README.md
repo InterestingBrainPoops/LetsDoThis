@@ -19,7 +19,7 @@ I plan on pushing a new meaningful feature once a day at least.
 And unless the feature is a mega overhaul/refactor or something along those lines, then I would mention it in the previous commit or update the README.  
   
   
-## Credits
+## Credits  
 I used external libraries, so here they are:  
 [socket.io](https://socket.io),  
 [p5.js](https://p5js.org),  
